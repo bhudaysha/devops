@@ -4,10 +4,16 @@ variable_name=variable_value # defining varibale
 #Accessing Values
 NAME="Zara Ali"
 echo $NAME
-#=============================**checking directory exist or not**===========================#
-if [ -d "$DIRECTORY" ]; then
-    # Will enter here if $DIRECTORY exists, even if it contains spaces
+#=============================**checking directory exist or not if not exist then create**===========================#
+if [ ! -d "$dirname" ]
+then
+    echo "File doesn't exist. Creating now"
+    mkdir ./$dirname
+    echo "File created"
+else
+    echo "File exists"
 fi
+
 
 #=============================**File Test Operators**========================================
 **-b file** : Checks if file is a block special file; if yes, then the condition becomes true. **Example**: [ -b $file ]
