@@ -4,6 +4,11 @@ variable_name=variable_value # defining varibale
 #Accessing Values
 NAME="Zara Ali"
 echo $NAME
+#=============================**checking directory exist or not**===========================#
+if [ -d "$DIRECTORY" ]; then
+    # Will enter here if $DIRECTORY exists, even if it contains spaces
+fi
+
 #=============================**File Test Operators**========================================
 **-b file** : Checks if file is a block special file; if yes, then the condition becomes true. **Example**: [ -b $file ]
 **-c file** : Checks if file is a character special file; if yes, then the condition becomes true. [ -c $file ]
