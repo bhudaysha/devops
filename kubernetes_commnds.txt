@@ -1,0 +1,48 @@
+=====how many nodes===
+kubectl get nodes
+========how many pods in default namespace=====
+kubectl get pods
+========how many pods in system=====
+kubectl get pods -A
+======services===========
+kubectl get services
+kubectl get svc -A
+
+============for changing in service===========
+kubectl get svc -A
+kubectl -n <name_space> edit service <service_name>
+
+==========get deployments list==========
+kubectl get deployments
+
+==============create deployment in kubernetes=========
+kubectl create deployment hello-nginx --image=nginx --port=80
+it will create deployment and pods
+
+=================create NodePort Service===============
+kubectl expose deployment hello-nginx --type=NodePort
+
+note: NodePort service is useful for port maping
+===============for seeing port mapping=============
+kubectl get services -A
+for example ports is 80:31137
+then site will be <ip_address>:31137 or run minikube service hell0-nginx --url or  minikube service list
+
+====================scaling deployment===============
+kubectl scale --replicas=2 deployment/hello-nginx
+
+==============deleting pod===============
+kubectl delete pod <pod_name>
+
+==============get namespaces===========
+kubectl get namespaces
+
+=============deleting all pods related to default namespace=========
+kubectl delete --all pods --namespace=default
+
+================kubernetes dashboard============
+minikube dashboard &
+kubectl get svc -A
+kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+then change type in bottom from "clusterIP" to "NodePort"
+
