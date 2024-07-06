@@ -26,7 +26,7 @@ note: NodePort service is useful for port maping
 ===============for seeing port mapping=============
 kubectl get services -A
 for example ports is 80:31137
-then site will be <ip_address>:31137 or run minikube service hell0-nginx --url or  minikube service list
+then site will be <ip_address>:31137 or run minikube service hello-nginx --url or  minikube service list
 
 ====================scaling deployment===============
 kubectl scale --replicas=2 deployment/hello-nginx
