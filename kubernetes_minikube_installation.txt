@@ -16,6 +16,17 @@ sudo minikube start &
 
 minikube status
 
+
+
+Note: Exiting due to HOST_JUJU_LOCK_PERMISSION: Failed to start host: boot lock: unable to open /tmp/juju-mkc8ab01ad3ea83211c505c81a7ee49a8e3ecb89: permission denied
+💡  Suggestion: Run 'sudo sysctl fs.protected_regular=0', or try a driver which does not require root, such as '--driver=docker'
+
+          sudo sysctl fs.protected_regular=0
+          sudo minikube config set vm-driver none
+          sudo minikube start &
+
+          
+
 Note :Sorry, Kubernetes 1.30.0 requires conntrack to be installed in root's path
 
           sudo apt-get update
