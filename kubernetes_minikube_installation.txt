@@ -10,5 +10,62 @@ sudo mv minikube /usr/local/bin/
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
-minikube start --driver=docker or minikube start --driver=docker --static-ip=<private_ip>
+
+sudo minikube config set vm-driver none
+sudo minikube start &
+
 minikube status
+
+Note :Sorry, Kubernetes 1.30.0 requires conntrack to be installed in root's path
+
+          sudo apt-get update
+          sudo apt-get install -y conntrack
+          sudo conntrack --version
+          sudo echo $PATH
+          sudo ln -s /usr/sbin/conntrack /usr/local/bin/conntrack
+
+Note: Kubernetes 1.30.0 requires crictl to be installed in root's path
+
+        VERSION="v1.30.0"
+        curl -LO "https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-amd64.tar.gz"
+        sudo tar -C /usr/local/bin -xzf crictl-${VERSION}-linux-amd64.tar.gz
+        sudo crictl --version
+        sudo echo $PATH
+        sudo ln -s /usr/local/bin/crictl /usr/bin/crictl
+
+Note: Please install cri-dockerd using these instructions: https://github.com/Mirantis/cri-dockerd
+
+          sudo apt update
+          sudo apt install -y golang-go
+
+
+          git clone https://github.com/Mirantis/cri-dockerd.git
+          cd cri-dockerd
+          mkdir bin
+          go build -o bin/cri-dockerd
+          sudo install -o root -g root -m 0755 bin/cri-dockerd /usr/local/bin/
+
+          sudo cp packaging/systemd/* /etc/systemd/system/
+          sudo systemctl daemon-reload
+          sudo systemctl enable cri-docker.service
+          sudo systemctl enable --now cri-docker.socket
+
+Note: Please install containernetworking-plugins using these instructions: https://minikube.sigs.k8s.io/docs/faq/#how-do-i-install-containernetworking-plugins-for-none-driver
+
+          Determine the latest version from the GitHub releases page https://github.com/containernetworking/plugins/releases
+          CNI_PLUGIN_VERSION="<version_here>"  for example:v1.5.1
+          CNI_PLUGIN_TAR="cni-plugins-linux-amd64-$CNI_PLUGIN_VERSION.tgz"
+          CNI_PLUGIN_INSTALL_DIR="/opt/cni/bin"
+          curl -LO "https://github.com/containernetworking/plugins/releases/download/$CNI_PLUGIN_VERSION/$CNI_PLUGIN_TAR"
+          sudo mkdir -p "$CNI_PLUGIN_INSTALL_DIR"
+          sudo tar -xf "$CNI_PLUGIN_TAR" -C "$CNI_PLUGIN_INSTALL_DIR"
+          rm "$CNI_PLUGIN_TAR"
+
+
+
+
+
+
+
+
+
