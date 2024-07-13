@@ -41,7 +41,7 @@ kubectl get namespaces
 kubectl delete --all pods --namespace=default
 
 ================kubernetes dashboard============
-minikube dashboard &
+sudo minikube dashboard &
 kubectl get svc -A
 kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
 then change type in bottom from "clusterIP" to "NodePort"
